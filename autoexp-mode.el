@@ -93,14 +93,6 @@
 
 
 ;;; Code:
-(defun autoexp-outline-level ()
-  "autoexp-mode's function for `outline-level'."
-  (cond
-   ((looking-at autoexp-re-outline-level1) 1)
-   ((looking-at autoexp-re-outline-level2) 2)
-   (t 3)))
-
-
 ;;;###autoload
 (define-derived-mode autoexp-mode text-mode "autoexp"
   "Major mode for editing msvc's autoexp.dat files.
@@ -140,9 +132,11 @@ Turning on autoexp mode runs the normal hook `autoexp-mode-hook'."
        '(autoexp-font-lock-keywords))
   
   ;; outline mode
-  (set (make-local-variable outline-heading-alist)
-       '((autoexp-re-outline-level1 . 1)
-         (autoexp-re-outline-level2 . 2)))
+  (set (make-local-variable 'outline-regexp)
+       (concat autoexp-re-outline-level1 "\\|" autoexp-re-outline-level2))
+  (set (make-local-variable 'outline-heading-alist)
+       `((,autoexp-re-outline-level1 . 1)
+         (,autoexp-re-outline-level2 . 2)))
   
   (run-hooks 'autoexp-mode-hook))
 
