@@ -36,9 +36,6 @@
 
 
 ;;; Variables:
-(defvar autoexp-mode-hook nil
-  "Normal hook run when entering autoexp mode.")
-
 (defconst autoexp-re-autoexp-type
   "\\(?:\\([^ \t\n=]\\|[^ \t\n=].*?[^ \t\n=]\\)[ \t]*=\\)")
 
@@ -136,9 +133,7 @@ Turning on autoexp mode runs the normal hook `autoexp-mode-hook'."
        (concat autoexp-re-outline-level1 "\\|" autoexp-re-outline-level2))
   (set (make-local-variable 'outline-heading-alist)
        `((,autoexp-re-outline-level1 . 1)
-         (,autoexp-re-outline-level2 . 2)))
-  
-  (run-hooks 'autoexp-mode-hook))
+         (,autoexp-re-outline-level2 . 2))))
 
 
 (provide 'autoexp-mode)
